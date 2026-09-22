@@ -4,224 +4,2268 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ToolBox - Free Online Tools</title>
+<title>ToolBox — Free Online Tools</title>
+
+<meta name="description" content="Fast, simple and free online tools for images, text, QR codes and calculations.">
 
 <style>
+
+/* =========================================================
+   DESIGN SYSTEM
+========================================================= */
+
+:root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --surface-soft: #f9fafc;
+
+    --text: #111827;
+    --text-soft: #667085;
+    --text-muted: #98a2b3;
+
+    --border: #e7e9ee;
+    --border-dark: #d9dce3;
+
+    --accent: #5b5ce2;
+    --accent-dark: #4849c7;
+    --accent-soft: #eeefff;
+
+    --success: #12a150;
+    --danger: #e5484d;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    --shadow-sm:
+        0 2px 8px rgba(16,24,40,.04);
+
+    --shadow-md:
+        0 12px 35px rgba(16,24,40,.07);
+
+    --shadow-lg:
+        0 25px 70px rgba(16,24,40,.10);
+}
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    color: #222;
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: var(--bg);
+    color: var(--text);
+
+    -webkit-font-smoothing: antialiased;
 }
 
-header {
-    background: #111827;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 28px;
-}
-
-header p {
-    margin: 8px 0 0;
-    color: #cbd5e1;
-}
-
-.container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 25px 15px;
-}
-
-.tools {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-}
-
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-}
-
-.card .icon {
-    font-size: 40px;
-}
-
-.card h3 {
-    margin: 12px 0 8px;
-}
-
-.card p {
-    color: #666;
-    font-size: 14px;
-}
-
-.tool-page {
-    display: none;
-}
-
-.tool-box {
-    background: white;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-    max-width: 600px;
-    margin: auto;
-}
-
-.back {
-    margin-bottom: 20px;
-    cursor: pointer;
-    color: #2563eb;
-    font-weight: bold;
-}
-
+button,
 input,
-select {
-    width: 100%;
-    padding: 13px;
-    margin: 8px 0 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 15px;
+select,
+textarea {
+    font: inherit;
 }
 
-button {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 8px;
+button,
+a,
+.card {
+    -webkit-tap-highlight-color: transparent;
 }
 
-button:hover {
-    background: #1d4ed8;
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    height: 72px;
+
+    background: rgba(255,255,255,.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(231,233,238,.85);
 }
 
-.result {
-    margin-top: 20px;
-    text-align: center;
-}
+.nav-inner {
+    max-width: 1180px;
+    height: 100%;
 
-#preview img {
-    max-width: 100%;
-    margin-top: 15px;
-    border-radius: 8px;
-}
+    margin: auto;
+    padding: 0 24px;
 
-#qrcode {
-    margin: 20px auto;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+
+    cursor: pointer;
+}
+
+.logo-mark {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: var(--accent);
+    color: white;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    box-shadow:
+        0 6px 16px rgba(91,92,226,.25);
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #667085;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+}
+
+.nav-tools {
+    padding: 10px 15px;
+
+    background: var(--text);
+    color: white !important;
+
+    border-radius: 9px;
+}
+
+.nav-tools:hover {
+    background: #252b36 !important;
+}
+
+.menu-btn {
+    display: none;
+
+    width: 40px;
+    height: 40px;
+
+    margin: 0;
+    padding: 0;
+
+    background: white;
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-wrap {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(91,92,226,.13),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(125,211,252,.10),
+            transparent 28%
+        );
+
+    border-bottom: 1px solid var(--border);
+}
+
+.hero-wrap::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -250px;
+    top: -250px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(91,92,226,.08);
+}
+
+.hero {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1180px;
+
+    margin: auto;
+    padding: 105px 24px 100px;
+
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+
+    align-items: center;
+
+    gap: 70px;
+}
+
+.hero-content {
+    max-width: 680px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 7px 11px;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    border: 1px solid rgba(91,92,226,.12);
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    letter-spacing: .2px;
+}
+
+.eyebrow-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+}
+
+.hero h1 {
+    margin: 20px 0 20px;
+
+    max-width: 700px;
+
+    font-size: clamp(42px, 5.5vw, 68px);
+    line-height: 1.02;
+
+    letter-spacing: -3px;
+
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: var(--accent);
+}
+
+.hero-description {
+    max-width: 590px;
+
+    margin: 0;
+
+    color: var(--text-soft);
+
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 32px;
+}
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 13px 18px;
+
+    background: var(--text);
+    color: white;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    border: 0;
+
+    transition: .2s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(16,24,40,.15);
+}
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 18px;
+
+    background: white;
+    color: var(--text);
+
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.hero-note {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 27px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.hero-note span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.check {
+    color: var(--success);
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual {
+    position: relative;
+
+    min-height: 390px;
+
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.download {
-    display: none;
-    background: #16a34a;
-    text-decoration: none;
-    color: white;
-    padding: 13px;
-    border-radius: 8px;
-    margin-top: 10px;
+.preview-window {
+    width: 100%;
+    max-width: 390px;
+
+    background: rgba(255,255,255,.9);
+
+    border: 1px solid rgba(231,233,238,.95);
+    border-radius: 22px;
+
+    box-shadow: var(--shadow-lg);
+
+    transform: rotate(2deg);
+
+    overflow: hidden;
 }
 
-.download:hover {
-    background: #15803d;
+.preview-top {
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 0 16px;
+
+    border-bottom: 1px solid var(--border);
 }
 
-footer {
+.window-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #d9dce3;
+}
+
+.preview-body {
+    padding: 22px;
+}
+
+.preview-label {
+    color: var(--text-muted);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.preview-title {
+    margin-top: 7px;
+
+    font-size: 21px;
+    font-weight: 750;
+
+    letter-spacing: -.5px;
+}
+
+.preview-upload {
+    margin-top: 20px;
+
+    padding: 27px 15px;
+
     text-align: center;
-    padding: 30px;
-    color: #777;
+
+    border: 1.5px dashed #cdd1da;
+    border-radius: 14px;
+
+    background: #fafbfc;
+}
+
+.preview-upload-icon {
+    width: 42px;
+    height: 42px;
+
+    margin: auto auto 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    border-radius: 11px;
+
+    font-weight: 800;
+}
+
+.preview-upload strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.preview-upload small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+}
+
+.preview-bar {
+    height: 9px;
+
+    margin-top: 22px;
+
+    background: #eceef3;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+.preview-bar span {
+    display: block;
+
+    width: 72%;
+    height: 100%;
+
+    background: var(--accent);
+
+    border-radius: inherit;
+}
+
+
+/* =========================================================
+   TOOLS SECTION
+========================================================= */
+
+.container {
+    max-width: 1180px;
+
+    margin: auto;
+
+    padding: 0 24px;
+}
+
+.tools-section {
+    padding: 92px 0 100px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 34px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: 32px;
+
+    letter-spacing: -1.2px;
+}
+
+.section-heading p {
+    margin: 8px 0 0;
+
+    color: var(--text-soft);
+
     font-size: 14px;
 }
+
+.tool-count {
+    color: var(--text-muted);
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.tools-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 17px;
+}
+
+.card {
+    position: relative;
+
+    min-height: 230px;
+
+    padding: 25px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+
+    border-color: #d5d7e8;
+
+    box-shadow: var(--shadow-md);
+}
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    font-size: 14px;
+    font-weight: 850;
+
+    letter-spacing: -.3px;
+}
+
+.card h3 {
+    margin: 22px 0 8px;
+
+    font-size: 17px;
+
+    letter-spacing: -.25px;
+}
+
+.card p {
+    margin: 0;
+
+    color: var(--text-soft);
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+.card-bottom {
+    position: absolute;
+
+    left: 25px;
+    right: 25px;
+    bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-category {
+    color: var(--text-muted);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .8px;
+}
+
+.card-arrow {
+    color: var(--text-muted);
+
+    font-size: 17px;
+
+    transition: .2s ease;
+}
+
+.card:hover .card-arrow {
+    color: var(--accent);
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   WHY SECTION
+========================================================= */
+
+.why-section {
+    padding: 0 0 100px;
+}
+
+.why-box {
+    position: relative;
+
+    padding: 48px;
+
+    background: #10141c;
+    color: white;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+}
+
+.why-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -100px;
+    top: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(91,92,226,.25);
+
+    filter: blur(15px);
+}
+
+.why-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 600px;
+}
+
+.why-label {
+    color: #aeb0ff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.why-box h2 {
+    margin: 12px 0;
+
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+
+.why-box p {
+    margin: 0;
+
+    color: #a8b0bf;
+
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.why-points {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 30px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.why-point strong {
+    display: block;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.why-point span {
+    color: #8d96a6;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   TOOL PAGES
+========================================================= */
+
+.tool-page {
+    display: none;
+
+    min-height: calc(100vh - 72px);
+
+    padding: 45px 0 90px;
+}
+
+.tool-header {
+    max-width: 760px;
+
+    margin: 0 auto 22px;
+}
+
+.breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    margin-bottom: 20px;
+}
+
+.breadcrumb:hover {
+    color: var(--accent);
+}
+
+.tool-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tool-heading-icon {
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    border-radius: 14px;
+
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.tool-header h1 {
+    margin: 0;
+
+    font-size: 28px;
+
+    letter-spacing: -1px;
+}
+
+.tool-header p {
+    margin: 7px 0 0;
+
+    color: var(--text-soft);
+
+    font-size: 13px;
+}
+
+.tool-box {
+    max-width: 760px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-md);
+}
+
+.tool-box > p {
+    color: var(--text-soft);
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field-label {
+    display: block;
+
+    margin: 18px 0 7px;
+
+    color: #344054;
+
+    font-size: 12px;
+    font-weight: 750;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    margin: 0;
+
+    color: var(--text);
+
+    background: white;
+
+    border: 1px solid var(--border-dark);
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: .2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a5acb8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
+
+    box-shadow:
+        0 0 0 3px rgba(91,92,226,.10);
+}
+
+input[type="range"] {
+    padding: 0;
+
+    accent-color: var(--accent);
+}
+
+textarea {
+    min-height: 230px;
+
+    resize: vertical;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   UPLOAD AREA
+========================================================= */
+
+.upload-area {
+    display: block;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    background: #fafbfc;
+
+    border: 1.5px dashed #cfd3dc;
+    border-radius: 15px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.upload-area:hover {
+    background: #f7f7ff;
+
+    border-color: #a7a8ec;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    border-radius: 13px;
+
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.upload-area strong {
+    display: block;
+
+    font-size: 14px;
+}
+
+.upload-area span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+}
+
+.upload-area input {
+    display: none;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    margin-top: 18px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: var(--accent);
+    color: white;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+button:hover {
+    background: var(--accent-dark);
+
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.download {
+    display: block;
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    margin-top: 10px;
+
+    background: var(--success);
+    color: white;
+
+    border-radius: 10px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.clear-btn {
+    background: #fff0f0;
+    color: var(--danger);
+
+    border: 1px solid #ffd8d8;
+}
+
+.clear-btn:hover {
+    background: #ffe5e5;
+
+    color: #c93439;
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.result {
+    margin-top: 22px;
+
+    text-align: center;
+
+    color: var(--text-soft);
+
+    font-size: 13px;
+}
+
+#compressResult img,
+#resizeResult img {
+    max-width: 100%;
+
+    margin-top: 15px;
+
+    border-radius: 12px;
+
+    border: 1px solid var(--border);
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+
+    margin: 24px auto;
+}
+
+#qrcode canvas,
+#qrcode img {
+    max-width: 100%;
+
+    border: 8px solid white;
+
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   CALCULATOR
+========================================================= */
+
+.calc-tabs {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 7px;
+
+    padding: 5px;
+
+    background: #f1f2f5;
+
+    border-radius: 11px;
+
+    margin-bottom: 20px;
+}
+
+.calc-tabs button {
+    margin: 0;
+
+    padding: 10px;
+
+    background: transparent;
+
+    color: var(--text-soft);
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+.calc-tabs button:hover {
+    background: transparent;
+
+    color: var(--text);
+}
+
+.calc-tabs button.active {
+    background: white;
+
+    color: var(--text);
+
+    box-shadow: var(--shadow-sm);
+}
+
+.calc-mode {
+    display: none;
+}
+
+.calc-mode.active {
+    display: block;
+}
+
+.calc-result {
+    margin-top: 20px;
+
+    padding: 22px;
+
+    background: var(--accent-soft);
+
+    border: 1px solid rgba(91,92,226,.10);
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    color: var(--text-soft);
+
+    font-size: 12px;
+}
+
+.calc-result .number {
+    margin: 5px 0;
+
+    color: var(--accent);
+
+    font-size: 31px;
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+
+/* =========================================================
+   WORD STATS
+========================================================= */
+
+.word-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 9px;
+
+    margin-top: 20px;
+}
+
+.stat {
+    padding: 15px 8px;
+
+    background: #f8f9fb;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    text-align: center;
+}
+
+.stat-number {
+    color: var(--text);
+
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.stat-label {
+    margin-top: 4px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INFO PAGES
+========================================================= */
+
+.info-page {
+    display: none;
+
+    min-height: calc(100vh - 72px);
+
+    padding: 50px 0 90px;
+}
+
+.info-box {
+    max-width: 820px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-md);
+}
+
+.info-box h1 {
+    margin: 0 0 25px;
+
+    font-size: 34px;
+
+    letter-spacing: -1.2px;
+}
+
+.info-box h2 {
+    margin-top: 32px;
+
+    font-size: 19px;
+
+    letter-spacing: -.3px;
+}
+
+.info-box p,
+.info-box li {
+    color: var(--text-soft);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+.info-box ul {
+    padding-left: 20px;
+}
+
+.contact-email {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 12px 15px;
+
+    background: var(--accent-soft);
+    color: var(--accent);
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    background: #10141c;
+
+    color: #8d96a6;
+
+    padding: 50px 24px 30px;
+}
+
+.footer-inner {
+    max-width: 1180px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1.6fr 1fr 1fr;
+
+    gap: 60px;
+}
+
+.footer-brand {
+    max-width: 310px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.footer-logo-mark {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--accent);
+
+    color: white;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+.footer-brand p {
+    margin: 15px 0 0;
+
+    color: #788292;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.footer-column h4 {
+    margin: 0 0 15px;
+
+    color: white;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+.footer-column a {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #7f8999;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    max-width: 1180px;
+
+    margin: 40px auto 0;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+
+    color: #626c7c;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .nav-inner {
+        padding: 0 18px;
+    }
+
+    .menu-btn {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none;
+
+        position: absolute;
+
+        top: 72px;
+        left: 0;
+        right: 0;
+
+        padding: 15px 18px 20px;
+
+        background: white;
+
+        border-bottom: 1px solid var(--border);
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 5px;
+
+        box-shadow: var(--shadow-md);
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 12px 10px;
+    }
+
+    .nav-tools {
+        text-align: center;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        padding: 75px 20px 70px;
+
+        gap: 45px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .hero-visual {
+        min-height: 320px;
+    }
+
+    .tools-section {
+        padding: 65px 0 70px;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .why-points {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 560px) {
+
+    .navbar {
+        height: 64px;
+    }
+
+    .nav-links {
+        top: 64px;
+    }
+
+    .hero {
+        padding: 58px 18px 60px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .hero-note {
+        flex-wrap: wrap;
+
+        gap: 9px 15px;
+    }
+
+    .hero-visual {
+        min-height: 280px;
+    }
+
+    .preview-window {
+        transform: none;
+    }
+
+    .container {
+        padding: 0 18px;
+    }
+
+    .section-heading {
+        display: block;
+    }
+
+    .section-heading h2 {
+        font-size: 27px;
+    }
+
+    .tool-count {
+        display: block;
+
+        margin-top: 10px;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        min-height: 215px;
+    }
+
+    .why-box {
+        padding: 30px 25px;
+    }
+
+    .why-box h2 {
+        font-size: 25px;
+    }
+
+    .tool-page {
+        padding: 30px 0 60px;
+    }
+
+    .tool-box {
+        padding: 21px;
+
+        border-radius: 16px;
+    }
+
+    .tool-header h1 {
+        font-size: 24px;
+    }
+
+    .info-box {
+        margin: 0 18px;
+
+        padding: 30px 22px;
+
+        border-radius: 16px;
+    }
+
+    .info-box h1 {
+        font-size: 28px;
+    }
+
+    .word-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .word-stats .stat:last-child {
+        grid-column: span 2;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+}
+
 </style>
 </head>
 
+
 <body>
 
-<header>
-    <h1>🛠️ ToolBox</h1>
-    <p>Free Online Tools</p>
-</header>
 
-<div class="container">
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
-    <!-- HOME -->
-    <div id="home">
+<nav class="navbar">
 
-        <div class="tools">
+    <div class="nav-inner">
 
-            <div class="card" onclick="openTool('compressor')">
-                <div class="icon">🖼️</div>
-                <h3>Image Compressor</h3>
-                <p>Compress images directly in your browser.</p>
+        <div class="logo" onclick="goHome()">
+
+            <div class="logo-mark">
+                TB
             </div>
 
-            <div class="card" onclick="openTool('resizer')">
-                <div class="icon">📐</div>
-                <h3>Image Resizer</h3>
-                <p>Resize images quickly and easily.</p>
-            </div>
+            Tool<span>Box</span>
 
-            <div class="card" onclick="openTool('qr')">
-                <div class="icon">🔳</div>
-                <h3>QR Code Generator</h3>
-                <p>Create QR codes from text or URLs.</p>
-            </div>
+        </div>
 
-            <div class="card">
-                <div class="icon">🔢</div>
-                <h3>Percentage Calculator</h3>
-                <p>Coming soon.</p>
-            </div>
 
-            <div class="card">
-                <div class="icon">📝</div>
-                <h3>Word Counter</h3>
-                <p>Coming soon.</p>
-            </div>
+        <button
+            class="menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-links"
+            id="navLinks"
+        >
+
+            <a onclick="goHome(); closeMenu();">
+                Home
+            </a>
+
+            <a onclick="scrollToTools(); closeMenu();">
+                Tools
+            </a>
+
+            <a onclick="showPage('about'); closeMenu();">
+                About
+            </a>
+
+            <a
+                class="nav-tools"
+                onclick="scrollToTools(); closeMenu();"
+            >
+                All Tools
+            </a>
 
         </div>
 
     </div>
 
+</nav>
 
-    <!-- IMAGE COMPRESSOR -->
-    <div id="compressor" class="tool-page">
 
-        <div class="back" onclick="goHome()">← Back</div>
+
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<div id="home">
+
+
+    <!-- HERO -->
+
+    <section class="hero-wrap">
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Free online utilities
+                </div>
+
+
+                <h1>
+                    Useful tools.
+                    <span>Without the hassle.</span>
+                </h1>
+
+
+                <p class="hero-description">
+                    A growing collection of simple online tools
+                    for images, text, calculations and more.
+                    Fast to use, easy to understand.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        class="primary-btn"
+                        onclick="scrollToTools()"
+                    >
+                        Explore tools
+                        <span>→</span>
+                    </a>
+
+                    <a
+                        class="secondary-btn"
+                        onclick="showPage('about')"
+                    >
+                        About ToolBox
+                    </a>
+
+                </div>
+
+
+                <div class="hero-note">
+
+                    <span>
+                        <span class="check">✓</span>
+                        No signup
+                    </span>
+
+                    <span>
+                        <span class="check">✓</span>
+                        Easy to use
+                    </span>
+
+                    <span>
+                        <span class="check">✓</span>
+                        Free access
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HERO PREVIEW -->
+
+            <div class="hero-visual">
+
+                <div class="preview-window">
+
+                    <div class="preview-top">
+
+                        <span class="window-dot"></span>
+                        <span class="window-dot"></span>
+                        <span class="window-dot"></span>
+
+                    </div>
+
+
+                    <div class="preview-body">
+
+                        <div class="preview-label">
+                            Image tool
+                        </div>
+
+                        <div class="preview-title">
+                            Compress your image
+                        </div>
+
+
+                        <div class="preview-upload">
+
+                            <div class="preview-upload-icon">
+                                ↑
+                            </div>
+
+                            <strong>
+                                Drop your image here
+                            </strong>
+
+                            <small>
+                                PNG, JPG or WebP
+                            </small>
+
+                        </div>
+
+
+                        <div class="preview-bar">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TOOLS -->
+
+    <section
+        class="tools-section"
+        id="toolsSection"
+    >
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Tools for everyday tasks
+                    </h2>
+
+                    <p>
+                        Simple utilities designed to get
+                        the job done without unnecessary steps.
+                    </p>
+
+                </div>
+
+                <div class="tool-count">
+                    05 tools available
+                </div>
+
+            </div>
+
+
+            <div class="tools-grid">
+
+
+                <!-- CARD 1 -->
+
+                <div
+                    class="card"
+                    onclick="openTool('compressor')"
+                >
+
+                    <div class="card-icon">
+                        IMG
+                    </div>
+
+                    <h3>
+                        Image Compressor
+                    </h3>
+
+                    <p>
+                        Reduce image file size while
+                        keeping the quality you need.
+                    </p>
+
+
+                    <div class="card-bottom">
+
+                        <span class="card-category">
+                            IMAGE
+                        </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 2 -->
+
+                <div
+                    class="card"
+                    onclick="openTool('resizer')"
+                >
+
+                    <div class="card-icon">
+                        PX
+                    </div>
+
+                    <h3>
+                        Image Resizer
+                    </h3>
+
+                    <p>
+                        Change image dimensions quickly
+                        with custom width and height.
+                    </p>
+
+
+                    <div class="card-bottom">
+
+                        <span class="card-category">
+                            IMAGE
+                        </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 3 -->
+
+                <div
+                    class="card"
+                    onclick="openTool('qr')"
+                >
+
+                    <div class="card-icon">
+                        QR
+                    </div>
+
+                    <h3>
+                        QR Code Generator
+                    </h3>
+
+                    <p>
+                        Turn text or a URL into a
+                        downloadable QR code.
+                    </p>
+
+
+                    <div class="card-bottom">
+
+                        <span class="card-category">
+                            GENERATOR
+                        </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 4 -->
+
+                <div
+                    class="card"
+                    onclick="openTool('percentage')"
+                >
+
+                    <div class="card-icon">
+                        %
+                    </div>
+
+                    <h3>
+                        Percentage Calculator
+                    </h3>
+
+                    <p>
+                        Calculate percentages and
+                        percentage changes instantly.
+                    </p>
+
+
+                    <div class="card-bottom">
+
+                        <span class="card-category">
+                            CALCULATOR
+                        </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CARD 5 -->
+
+                <div
+                    class="card"
+                    onclick="openTool('wordcounter')"
+                >
+
+                    <div class="card-icon">
+                        TXT
+                    </div>
+
+                    <h3>
+                        Word Counter
+                    </h3>
+
+                    <p>
+                        Count words, characters,
+                        sentences and reading time.
+                    </p>
+
+
+                    <div class="card-bottom">
+
+                        <span class="card-category">
+                            TEXT
+                        </span>
+
+                        <span class="card-arrow">
+                            →
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- WHY TOOLBOX -->
+
+    <section class="why-section">
+
+        <div class="container">
+
+            <div class="why-box">
+
+                <div class="why-content">
+
+                    <div class="why-label">
+                        Why ToolBox
+                    </div>
+
+                    <h2>
+                        Simple by design.
+                    </h2>
+
+                    <p>
+                        ToolBox focuses on useful utilities
+                        that don't need complicated interfaces.
+                        Pick a tool, do the task and move on.
+                    </p>
+
+                </div>
+
+
+                <div class="why-points">
+
+                    <div class="why-point">
+
+                        <strong>
+                            Quick
+                        </strong>
+
+                        <span>
+                            Minimal steps and straightforward
+                            interfaces.
+                        </span>
+
+                    </div>
+
+
+                    <div class="why-point">
+
+                        <strong>
+                            Accessible
+                        </strong>
+
+                        <span>
+                            Designed to work comfortably
+                            across desktop and mobile.
+                        </span>
+
+                    </div>
+
+
+                    <div class="why-point">
+
+                        <strong>
+                            Growing
+                        </strong>
+
+                        <span>
+                            More useful tools can be added
+                            over time.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     IMAGE COMPRESSOR
+========================================================= -->
+
+<div
+    id="compressor"
+    class="tool-page"
+>
+
+    <div class="container">
+
+        <div class="tool-header">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← All tools
+            </div>
+
+            <div class="tool-heading">
+
+                <div class="tool-heading-icon">
+                    IMG
+                </div>
+
+                <div>
+
+                    <h1>
+                        Image Compressor
+                    </h1>
+
+                    <p>
+                        Reduce image file size with adjustable quality.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="tool-box">
 
-            <h2>🖼️ Image Compressor</h2>
-            <p>Reduce image file size directly in your browser.</p>
+            <label class="upload-area">
 
-            <input type="file" id="compressInput" accept="image/*">
+                <div class="upload-icon">
+                    ↑
+                </div>
 
-            <label>Compression Quality</label>
+                <strong>
+                    Choose an image
+                </strong>
+
+                <span>
+                    JPG, PNG, WebP and other image files
+                </span>
+
+                <input
+                    type="file"
+                    id="compressInput"
+                    accept="image/*"
+                >
+
+            </label>
+
+
+            <label class="field-label">
+                Compression quality
+            </label>
+
             <input
                 type="range"
                 id="quality"
@@ -231,57 +2275,181 @@ footer {
                 value="0.7"
             >
 
+
             <button onclick="compressImage()">
-                Compress Image
+                Compress image
             </button>
 
-            <div id="compressResult" class="result"></div>
+
+            <div
+                id="compressResult"
+                class="result"
+            ></div>
 
         </div>
 
     </div>
 
+</div>
 
-    <!-- IMAGE RESIZER -->
-    <div id="resizer" class="tool-page">
 
-        <div class="back" onclick="goHome()">← Back</div>
+
+<!-- =========================================================
+     IMAGE RESIZER
+========================================================= -->
+
+<div
+    id="resizer"
+    class="tool-page"
+>
+
+    <div class="container">
+
+        <div class="tool-header">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← All tools
+            </div>
+
+            <div class="tool-heading">
+
+                <div class="tool-heading-icon">
+                    PX
+                </div>
+
+                <div>
+
+                    <h1>
+                        Image Resizer
+                    </h1>
+
+                    <p>
+                        Resize images to the exact dimensions you need.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="tool-box">
 
-            <h2>📐 Image Resizer</h2>
-            <p>Resize your image to the dimensions you want.</p>
+            <label class="upload-area">
 
-            <input type="file" id="resizeInput" accept="image/*">
+                <div class="upload-icon">
+                    ↑
+                </div>
 
-            <label>Width (px)</label>
-            <input type="number" id="resizeWidth" placeholder="Example: 1000">
+                <strong>
+                    Choose an image
+                </strong>
 
-            <label>Height (px)</label>
-            <input type="number" id="resizeHeight" placeholder="Example: 1000">
+                <span>
+                    Select the image you want to resize
+                </span>
+
+                <input
+                    type="file"
+                    id="resizeInput"
+                    accept="image/*"
+                >
+
+            </label>
+
+
+            <label class="field-label">
+                Width (px)
+            </label>
+
+            <input
+                type="number"
+                id="resizeWidth"
+                placeholder="Example: 1000"
+            >
+
+
+            <label class="field-label">
+                Height (px)
+            </label>
+
+            <input
+                type="number"
+                id="resizeHeight"
+                placeholder="Example: 1000"
+            >
+
 
             <button onclick="resizeImage()">
-                Resize Image
+                Resize image
             </button>
 
-            <div id="resizeResult" class="result"></div>
+
+            <div
+                id="resizeResult"
+                class="result"
+            ></div>
 
         </div>
 
     </div>
 
+</div>
 
-    <!-- QR CODE -->
-    <div id="qr" class="tool-page">
 
-        <div class="back" onclick="goHome()">← Back</div>
+
+<!-- =========================================================
+     QR CODE
+========================================================= -->
+
+<div
+    id="qr"
+    class="tool-page"
+>
+
+    <div class="container">
+
+        <div class="tool-header">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← All tools
+            </div>
+
+            <div class="tool-heading">
+
+                <div class="tool-heading-icon">
+                    QR
+                </div>
+
+                <div>
+
+                    <h1>
+                        QR Code Generator
+                    </h1>
+
+                    <p>
+                        Create a QR code from text or a URL.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="tool-box">
 
-            <h2>🔳 QR Code Generator</h2>
-            <p>Create a QR code from a URL or text.</p>
-
-            <label>Text or URL</label>
+            <label class="field-label">
+                Text or URL
+            </label>
 
             <input
                 type="text"
@@ -289,24 +2457,44 @@ footer {
                 placeholder="https://example.com"
             >
 
-            <label>QR Code Size</label>
+
+            <label class="field-label">
+                QR code size
+            </label>
 
             <select id="qrSize">
-                <option value="200">200 × 200</option>
-                <option value="300" selected>300 × 300</option>
-                <option value="400">400 × 400</option>
+
+                <option value="200">
+                    200 × 200
+                </option>
+
+                <option
+                    value="300"
+                    selected
+                >
+                    300 × 300
+                </option>
+
+                <option value="400">
+                    400 × 400
+                </option>
+
             </select>
 
+
             <button onclick="generateQR()">
-                Generate QR Code
+                Generate QR code
             </button>
 
+
             <div id="qrcode"></div>
+
 
             <a
                 id="qrDownload"
                 class="download"
                 download="qrcode.png"
+                style="display:none;"
             >
                 Download PNG
             </a>
@@ -317,54 +2505,806 @@ footer {
 
 </div>
 
+
+
+<!-- =========================================================
+     PERCENTAGE CALCULATOR
+========================================================= -->
+
+<div
+    id="percentage"
+    class="tool-page"
+>
+
+    <div class="container">
+
+        <div class="tool-header">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← All tools
+            </div>
+
+            <div class="tool-heading">
+
+                <div class="tool-heading-icon">
+                    %
+                </div>
+
+                <div>
+
+                    <h1>
+                        Percentage Calculator
+                    </h1>
+
+                    <p>
+                        Calculate percentages and percentage changes.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="tool-box">
+
+
+            <div class="calc-tabs">
+
+                <button
+                    id="tab1"
+                    class="active"
+                    onclick="showCalc(1)"
+                >
+                    Basic percentage
+                </button>
+
+                <button
+                    id="tab2"
+                    onclick="showCalc(2)"
+                >
+                    Percentage change
+                </button>
+
+            </div>
+
+
+
+            <div
+                id="calc1"
+                class="calc-mode active"
+            >
+
+                <label class="field-label">
+                    Percentage
+                </label>
+
+                <input
+                    type="number"
+                    id="basicPercent"
+                    placeholder="Example: 20"
+                >
+
+
+                <label class="field-label">
+                    Number
+                </label>
+
+                <input
+                    type="number"
+                    id="basicNumber"
+                    placeholder="Example: 500"
+                >
+
+
+                <button onclick="basicPercentage()">
+                    Calculate
+                </button>
+
+
+                <div
+                    id="basicResult"
+                    class="calc-result"
+                ></div>
+
+            </div>
+
+
+
+            <div
+                id="calc2"
+                class="calc-mode"
+            >
+
+                <label class="field-label">
+                    Original value
+                </label>
+
+                <input
+                    type="number"
+                    id="oldValue"
+                    placeholder="Example: 100"
+                >
+
+
+                <label class="field-label">
+                    New value
+                </label>
+
+                <input
+                    type="number"
+                    id="newValue"
+                    placeholder="Example: 150"
+                >
+
+
+                <button onclick="percentageDifference()">
+                    Calculate
+                </button>
+
+
+                <div
+                    id="differenceResult"
+                    class="calc-result"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     WORD COUNTER
+========================================================= -->
+
+<div
+    id="wordcounter"
+    class="tool-page"
+>
+
+    <div class="container">
+
+        <div class="tool-header">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← All tools
+            </div>
+
+            <div class="tool-heading">
+
+                <div class="tool-heading-icon">
+                    TXT
+                </div>
+
+                <div>
+
+                    <h1>
+                        Word Counter
+                    </h1>
+
+                    <p>
+                        Count words, characters, sentences and reading time.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="tool-box">
+
+            <textarea
+                id="wordText"
+                placeholder="Type or paste your text here..."
+                oninput="countWords()"
+            ></textarea>
+
+
+            <button
+                class="clear-btn"
+                onclick="clearWords()"
+            >
+                Clear text
+            </button>
+
+
+            <div class="word-stats">
+
+                <div class="stat">
+
+                    <div
+                        id="wordCount"
+                        class="stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Words
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="charCount"
+                        class="stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Characters
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="charNoSpace"
+                        class="stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        No spaces
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="sentenceCount"
+                        class="stat-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Sentences
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        id="readingTime"
+                        class="stat-number"
+                    >
+                        0 min
+                    </div>
+
+                    <div class="stat-label">
+                        Reading time
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<div
+    id="about"
+    class="info-page"
+>
+
+    <div class="container">
+
+        <div class="info-box">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← Back to home
+            </div>
+
+            <h1>
+                About ToolBox
+            </h1>
+
+            <p>
+                ToolBox is a collection of simple online
+                utilities designed to make everyday digital
+                tasks easier.
+            </p>
+
+            <h2>
+                What is ToolBox?
+            </h2>
+
+            <p>
+                ToolBox brings together useful tools for
+                working with images, text, QR codes and
+                calculations in one place.
+            </p>
+
+            <h2>
+                Our goal
+            </h2>
+
+            <p>
+                The goal is simple: create useful tools with
+                clear interfaces and as few unnecessary steps
+                as possible.
+            </p>
+
+            <h2>
+                Free to use
+            </h2>
+
+            <p>
+                The tools currently available on ToolBox
+                are designed to be free to use.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     PRIVACY
+========================================================= -->
+
+<div
+    id="privacy"
+    class="info-page"
+>
+
+    <div class="container">
+
+        <div class="info-box">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← Back to home
+            </div>
+
+            <h1>
+                Privacy Policy
+            </h1>
+
+            <p>
+                Last updated: September 2026
+            </p>
+
+            <h2>
+                Information We Collect
+            </h2>
+
+            <p>
+                ToolBox is designed so that many of its
+                current tools can process information directly
+                within the user's browser.
+            </p>
+
+            <h2>
+                Images and Text
+            </h2>
+
+            <p>
+                The image processing tools currently process
+                selected images within the browser. Text entered
+                into the Word Counter is also processed within
+                the browser.
+            </p>
+
+            <h2>
+                Cookies
+            </h2>
+
+            <p>
+                ToolBox may use cookies or similar technologies
+                in the future for analytics, advertising or
+                improving the website.
+            </p>
+
+            <h2>
+                Third-Party Services
+            </h2>
+
+            <p>
+                Some features may rely on third-party libraries
+                or services required for functionality.
+            </p>
+
+            <h2>
+                Changes
+            </h2>
+
+            <p>
+                This policy may be updated as ToolBox develops
+                and new features are introduced.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TERMS
+========================================================= -->
+
+<div
+    id="terms"
+    class="info-page"
+>
+
+    <div class="container">
+
+        <div class="info-box">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← Back to home
+            </div>
+
+            <h1>
+                Terms of Service
+            </h1>
+
+            <p>
+                Last updated: September 2026
+            </p>
+
+            <h2>
+                Use of the Website
+            </h2>
+
+            <p>
+                You may use ToolBox and its available tools
+                for lawful personal or commercial purposes.
+            </p>
+
+            <h2>
+                No Guarantee
+            </h2>
+
+            <p>
+                ToolBox is provided on an "as is" and
+                "as available" basis. We do not guarantee
+                that every tool will always be available
+                or error-free.
+            </p>
+
+            <h2>
+                User Responsibility
+            </h2>
+
+            <p>
+                Users are responsible for the files,
+                information and content they choose to
+                process using the website.
+            </p>
+
+            <h2>
+                Changes
+            </h2>
+
+            <p>
+                Features and functionality may be modified,
+                added or removed as the website develops.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<div
+    id="contact"
+    class="info-page"
+>
+
+    <div class="container">
+
+        <div class="info-box">
+
+            <div
+                class="breadcrumb"
+                onclick="goHome()"
+            >
+                ← Back to home
+            </div>
+
+            <h1>
+                Contact
+            </h1>
+
+            <p>
+                Have a suggestion, bug report or question
+                about ToolBox? We'd love to hear from you.
+            </p>
+
+            <div class="contact-email">
+                contact@yourdomain.com
+            </div>
+
+            <p>
+                Replace this placeholder with your real
+                email address before launching the final site.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer>
-    ToolBox © 2026 — Free Online Tools
+
+    <div class="footer-inner">
+
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+
+                <div class="footer-logo-mark">
+                    TB
+                </div>
+
+                ToolBox
+
+            </div>
+
+            <p>
+                Simple online utilities for everyday
+                digital tasks.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Product
+            </h4>
+
+            <a onclick="scrollToTools()">
+                All tools
+            </a>
+
+            <a onclick="openTool('compressor')">
+                Image Compressor
+            </a>
+
+            <a onclick="openTool('resizer')">
+                Image Resizer
+            </a>
+
+            <a onclick="openTool('qr')">
+                QR Generator
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Company
+            </h4>
+
+            <a onclick="showPage('about')">
+                About
+            </a>
+
+            <a onclick="showPage('privacy')">
+                Privacy Policy
+            </a>
+
+            <a onclick="showPage('terms')">
+                Terms
+            </a>
+
+            <a onclick="showPage('contact')">
+                Contact
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 ToolBox. All rights reserved.
+
+    </div>
+
 </footer>
 
 
-<!-- QR CODE LIBRARY -->
+
+<!-- =========================================================
+     QR LIBRARY
+========================================================= -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
 
 <script>
 
-function openTool(tool) {
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function hideAllPages() {
 
     document.getElementById("home").style.display = "none";
 
-    document.querySelectorAll(".tool-page").forEach(function(page) {
-        page.style.display = "none";
-    });
+    document
+        .querySelectorAll(".tool-page, .info-page")
+        .forEach(function(page) {
+
+            page.style.display = "none";
+
+        });
+
+}
+
+
+function openTool(tool) {
+
+    hideAllPages();
 
     document.getElementById(tool).style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+function showPage(page) {
+
+    hideAllPages();
+
+    document.getElementById(page).style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 }
 
 
 function goHome() {
 
-    document.querySelectorAll(".tool-page").forEach(function(page) {
-        page.style.display = "none";
-    });
+    hideAllPages();
 
     document.getElementById("home").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 }
 
 
-/* IMAGE COMPRESSOR */
+function toggleMenu() {
+
+    document
+        .getElementById("navLinks")
+        .classList.toggle("show");
+
+}
+
+
+function closeMenu() {
+
+    document
+        .getElementById("navLinks")
+        .classList.remove("show");
+
+}
+
+
+function scrollToTools() {
+
+    goHome();
+
+    setTimeout(function() {
+
+        document
+            .getElementById("toolsSection")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    }, 50);
+
+}
+
+
+/* =========================================================
+   IMAGE COMPRESSOR
+========================================================= */
 
 function compressImage() {
 
-    const input = document.getElementById("compressInput");
+    const input =
+        document.getElementById("compressInput");
 
     if (!input.files.length) {
+
         alert("Please select an image first.");
+
         return;
     }
 
     const file = input.files[0];
 
-    const quality = parseFloat(
-        document.getElementById("quality").value
-    );
+    const quality =
+        parseFloat(
+            document.getElementById("quality").value
+        );
 
     const reader = new FileReader();
 
@@ -374,40 +3314,46 @@ function compressImage() {
 
         img.onload = function() {
 
-            const canvas = document.createElement("canvas");
+            const canvas =
+                document.createElement("canvas");
 
             canvas.width = img.width;
             canvas.height = img.height;
 
-            const ctx = canvas.getContext("2d");
+            const ctx =
+                canvas.getContext("2d");
 
             ctx.drawImage(img, 0, 0);
 
             canvas.toBlob(function(blob) {
 
-                const url = URL.createObjectURL(blob);
+                const url =
+                    URL.createObjectURL(blob);
 
-                document.getElementById("compressResult").innerHTML = `
+                document.getElementById(
+                    "compressResult"
+                ).innerHTML = `
 
                     <p>
                         Original:
-                        ${(file.size / 1024).toFixed(1)} KB
+                        ${(file.size / 1024).toFixed(1)}
+                        KB
                     </p>
 
                     <p>
                         Compressed:
-                        ${(blob.size / 1024).toFixed(1)} KB
+                        ${(blob.size / 1024).toFixed(1)}
+                        KB
                     </p>
 
-                    <img src="${url}" style="max-width:100%;">
+                    <img src="${url}">
 
                     <a
                         href="${url}"
                         download="compressed-image.jpg"
                         class="download"
-                        style="display:block;"
                     >
-                        Download Image
+                        Download image
                     </a>
 
                 `;
@@ -421,30 +3367,40 @@ function compressImage() {
     };
 
     reader.readAsDataURL(file);
+
 }
 
 
-/* IMAGE RESIZER */
+/* =========================================================
+   IMAGE RESIZER
+========================================================= */
 
 function resizeImage() {
 
-    const input = document.getElementById("resizeInput");
+    const input =
+        document.getElementById("resizeInput");
 
     if (!input.files.length) {
+
         alert("Please select an image first.");
+
         return;
     }
 
-    const width = parseInt(
-        document.getElementById("resizeWidth").value
-    );
+    const width =
+        parseInt(
+            document.getElementById("resizeWidth").value
+        );
 
-    const height = parseInt(
-        document.getElementById("resizeHeight").value
-    );
+    const height =
+        parseInt(
+            document.getElementById("resizeHeight").value
+        );
 
     if (!width || !height) {
+
         alert("Please enter width and height.");
+
         return;
     }
 
@@ -458,12 +3414,14 @@ function resizeImage() {
 
         img.onload = function() {
 
-            const canvas = document.createElement("canvas");
+            const canvas =
+                document.createElement("canvas");
 
             canvas.width = width;
             canvas.height = height;
 
-            const ctx = canvas.getContext("2d");
+            const ctx =
+                canvas.getContext("2d");
 
             ctx.drawImage(
                 img,
@@ -475,24 +3433,26 @@ function resizeImage() {
 
             canvas.toBlob(function(blob) {
 
-                const url = URL.createObjectURL(blob);
+                const url =
+                    URL.createObjectURL(blob);
 
-                document.getElementById("resizeResult").innerHTML = `
+                document.getElementById(
+                    "resizeResult"
+                ).innerHTML = `
 
                     <p>
                         New size:
                         ${width} × ${height}px
                     </p>
 
-                    <img src="${url}" style="max-width:100%;">
+                    <img src="${url}">
 
                     <a
                         href="${url}"
                         download="resized-image.jpg"
                         class="download"
-                        style="display:block;"
                     >
-                        Download Image
+                        Download image
                     </a>
 
                 `;
@@ -506,18 +3466,25 @@ function resizeImage() {
     };
 
     reader.readAsDataURL(file);
+
 }
 
 
-/* QR CODE */
+/* =========================================================
+   QR CODE
+========================================================= */
 
 function generateQR() {
 
-    const text = document.getElementById("qrText").value.trim();
+    const text =
+        document.getElementById("qrText")
+        .value
+        .trim();
 
-    const size = parseInt(
-        document.getElementById("qrSize").value
-    );
+    const size =
+        parseInt(
+            document.getElementById("qrSize").value
+        );
 
     if (!text) {
 
@@ -526,9 +3493,11 @@ function generateQR() {
         return;
     }
 
-    const container = document.getElementById("qrcode");
+    const container =
+        document.getElementById("qrcode");
 
-    const download = document.getElementById("qrDownload");
+    const download =
+        document.getElementById("qrDownload");
 
     container.innerHTML = "";
 
@@ -546,19 +3515,24 @@ function generateQR() {
 
         colorLight: "#ffffff",
 
-        correctLevel: QRCode.CorrectLevel.H
+        correctLevel:
+            QRCode.CorrectLevel.H
 
     });
 
+
     setTimeout(function() {
 
-        const canvas = container.querySelector("canvas");
+        const canvas =
+            container.querySelector("canvas");
 
-        const img = container.querySelector("img");
+        const img =
+            container.querySelector("img");
 
         if (canvas) {
 
-            download.href = canvas.toDataURL("image/png");
+            download.href =
+                canvas.toDataURL("image/png");
 
             download.style.display = "block";
 
@@ -572,6 +3546,237 @@ function generateQR() {
         }
 
     }, 100);
+
+}
+
+
+/* =========================================================
+   PERCENTAGE
+========================================================= */
+
+function showCalc(number) {
+
+    document
+        .querySelectorAll(".calc-mode")
+        .forEach(function(mode) {
+
+            mode.classList.remove("active");
+
+        });
+
+
+    document
+        .querySelectorAll(".calc-tabs button")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById("calc" + number)
+        .classList.add("active");
+
+
+    document
+        .getElementById("tab" + number)
+        .classList.add("active");
+
+}
+
+
+function basicPercentage() {
+
+    const percent =
+        parseFloat(
+            document.getElementById("basicPercent").value
+        );
+
+    const number =
+        parseFloat(
+            document.getElementById("basicNumber").value
+        );
+
+    if (isNaN(percent) || isNaN(number)) {
+
+        alert("Please enter both numbers.");
+
+        return;
+    }
+
+    const result =
+        (percent / 100) * number;
+
+    document.getElementById(
+        "basicResult"
+    ).innerHTML = `
+
+        <div>
+            Result
+        </div>
+
+        <div class="number">
+            ${result.toLocaleString()}
+        </div>
+
+        <div>
+            ${percent}% of ${number}
+        </div>
+
+    `;
+
+}
+
+
+function percentageDifference() {
+
+    const oldValue =
+        parseFloat(
+            document.getElementById("oldValue").value
+        );
+
+    const newValue =
+        parseFloat(
+            document.getElementById("newValue").value
+        );
+
+    if (
+        isNaN(oldValue) ||
+        isNaN(newValue)
+    ) {
+
+        alert("Please enter both numbers.");
+
+        return;
+    }
+
+    if (oldValue === 0) {
+
+        alert("Original value cannot be zero.");
+
+        return;
+    }
+
+    const difference =
+        ((newValue - oldValue) /
+        Math.abs(oldValue)) * 100;
+
+    let label = "";
+
+    if (difference > 0) {
+
+        label = "Increase";
+
+    }
+    else if (difference < 0) {
+
+        label = "Decrease";
+
+    }
+    else {
+
+        label = "No change";
+
+    }
+
+    document.getElementById(
+        "differenceResult"
+    ).innerHTML = `
+
+        <div>
+            ${label}
+        </div>
+
+        <div class="number">
+            ${Math.abs(difference).toFixed(2)}%
+        </div>
+
+        <div>
+            ${oldValue} → ${newValue}
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   WORD COUNTER
+========================================================= */
+
+function countWords() {
+
+    const text =
+        document.getElementById("wordText").value;
+
+    const trimmed =
+        text.trim();
+
+    const words =
+        trimmed === ""
+            ? []
+            : trimmed.split(/\s+/);
+
+    const wordCount =
+        words.length;
+
+    const charCount =
+        text.length;
+
+    const charNoSpace =
+        text.replace(/\s/g, "").length;
+
+    const sentences =
+        trimmed === ""
+            ? 0
+            : (trimmed.match(/[.!?]+/g) || []).length;
+
+    const readingMinutes =
+        wordCount === 0
+            ? 0
+            : Math.ceil(wordCount / 200);
+
+
+    document.getElementById(
+        "wordCount"
+    ).textContent =
+        wordCount.toLocaleString();
+
+
+    document.getElementById(
+        "charCount"
+    ).textContent =
+        charCount.toLocaleString();
+
+
+    document.getElementById(
+        "charNoSpace"
+    ).textContent =
+        charNoSpace.toLocaleString();
+
+
+    document.getElementById(
+        "sentenceCount"
+    ).textContent =
+        sentences.toLocaleString();
+
+
+    document.getElementById(
+        "readingTime"
+    ).textContent =
+        readingMinutes + " min";
+
+}
+
+
+function clearWords() {
+
+    document.getElementById(
+        "wordText"
+    ).value = "";
+
+    countWords();
 
 }
 

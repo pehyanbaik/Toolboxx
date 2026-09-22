@@ -68,8 +68,7 @@
       padding: 25px;
       border-radius: 14px;
       border: 1px solid #ddd;
-      text-decoration: none;
-      color: #222;
+      cursor: pointer;
       transition: 0.2s;
     }
 
@@ -94,6 +93,93 @@
       line-height: 1.5;
     }
 
+    .tool-page {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid #ddd;
+    }
+
+    .tool-page h2 {
+      margin-bottom: 10px;
+    }
+
+    .tool-page p {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .upload-box {
+      border: 2px dashed #bbb;
+      border-radius: 14px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .upload-box:hover {
+      background: #fafafa;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .upload-button,
+    .download-button,
+    .back-button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 15px;
+    }
+
+    .upload-button {
+      background: #222;
+      color: white;
+    }
+
+    .download-button {
+      background: #222;
+      color: white;
+      text-decoration: none;
+      display: none;
+    }
+
+    .back-button {
+      background: #eee;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .settings {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .settings label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      line-height: 1.7;
+    }
+
     footer {
       text-align: center;
       margin-top: 50px;
@@ -101,62 +187,281 @@
       color: #888;
       font-size: 14px;
     }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .container {
+        margin-top: 25px;
+      }
+
+      .tool-page {
+        padding: 22px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">🛠️ ToolBox</div>
-    <div class="tagline">Free tools for everyday tasks</div>
-  </header>
+<header>
+  <div class="logo">🛠️ ToolBox</div>
+  <div class="tagline">Free tools for everyday tasks</div>
+</header>
 
-  <main class="container">
+<main class="container">
 
-    <section class="hero">
+  <!-- HOME -->
+  <section id="home">
+
+    <div class="hero">
       <h1>Free Online Tools</h1>
       <p>Simple, fast and free tools you can use anytime.</p>
-    </section>
+    </div>
 
-    <section class="tools">
+    <div class="tools">
 
-      <a href="#" class="tool-card">
+      <div class="tool-card" onclick="openCompressor()">
         <div class="icon">🖼️</div>
         <h2>Image Compressor</h2>
         <p>Compress images and reduce file size quickly.</p>
-      </a>
+      </div>
 
-      <a href="#" class="tool-card">
+      <div class="tool-card">
         <div class="icon">📐</div>
         <h2>Image Resizer</h2>
-        <p>Resize your images to any size you need.</p>
-      </a>
+        <p>Coming soon.</p>
+      </div>
 
-      <a href="#" class="tool-card">
+      <div class="tool-card">
         <div class="icon">🔳</div>
         <h2>QR Code Generator</h2>
-        <p>Create QR codes from text or links.</p>
-      </a>
+        <p>Coming soon.</p>
+      </div>
 
-      <a href="#" class="tool-card">
+      <div class="tool-card">
         <div class="icon">🔢</div>
         <h2>Percentage Calculator</h2>
-        <p>Calculate percentages, discounts and increases.</p>
-      </a>
+        <p>Coming soon.</p>
+      </div>
 
-      <a href="#" class="tool-card">
+      <div class="tool-card">
         <div class="icon">📝</div>
         <h2>Word Counter</h2>
-        <p>Count words, characters and sentences instantly.</p>
-      </a>
+        <p>Coming soon.</p>
+      </div>
 
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- IMAGE COMPRESSOR -->
+  <section id="compressor" class="tool-page">
 
-  <footer>
-    © 2026 ToolBox. Free online tools.
-  </footer>
+    <button class="back-button" onclick="goHome()">← Back to tools</button>
+
+    <h2>🖼️ Image Compressor</h2>
+
+    <p>
+      Reduce image file size while keeping good image quality.
+      Your image is processed directly in your browser.
+    </p>
+
+    <label class="upload-box" for="imageInput">
+      <strong>Choose an image</strong>
+      <br>
+      <span>JPG, PNG or WebP</span>
+
+      <br>
+
+      <span class="upload-button">
+        Select Image
+      </span>
+    </label>
+
+    <input
+      type="file"
+      id="imageInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="settings" id="settings">
+
+      <label for="quality">
+        Compression Quality:
+        <span id="qualityValue">70</span>%
+      </label>
+
+      <input
+        type="range"
+        id="quality"
+        min="10"
+        max="100"
+        value="70"
+      >
+
+      <button class="upload-button" onclick="compressImage()">
+        Compress Image
+      </button>
+
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <a
+      id="downloadButton"
+      class="download-button"
+      download="compressed-image.jpg"
+    >
+      Download Compressed Image
+    </a>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 ToolBox. Free online tools.
+</footer>
+
+<script>
+
+  const imageInput = document.getElementById("imageInput");
+  const settings = document.getElementById("settings");
+  const quality = document.getElementById("quality");
+  const qualityValue = document.getElementById("qualityValue");
+  const result = document.getElementById("result");
+  const downloadButton = document.getElementById("downloadButton");
+
+  let selectedImage = null;
+
+  function openCompressor() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("compressor").style.display = "block";
+    window.scrollTo(0, 0);
+  }
+
+  function goHome() {
+    document.getElementById("compressor").style.display = "none";
+    document.getElementById("home").style.display = "block";
+    window.scrollTo(0, 0);
+  }
+
+  quality.addEventListener("input", function() {
+    qualityValue.textContent = this.value;
+  });
+
+  imageInput.addEventListener("change", function(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    selectedImage = file;
+
+    settings.style.display = "block";
+
+    result.style.display = "none";
+    downloadButton.style.display = "none";
+
+    result.innerHTML =
+      "Selected image: <strong>" +
+      file.name +
+      "</strong><br>" +
+      "Original size: <strong>" +
+      formatBytes(file.size) +
+      "</strong>";
+
+    result.style.display = "block";
+  });
+
+  function compressImage() {
+
+    if (!selectedImage) {
+      alert("Please select an image first.");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      const img = new Image();
+
+      img.onload = function() {
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0);
+
+        const qualityValueNumber = Number(quality.value) / 100;
+
+        canvas.toBlob(function(blob) {
+
+          if (!blob) {
+            alert("Compression failed.");
+            return;
+          }
+
+          const url = URL.createObjectURL(blob);
+
+          downloadButton.href = url;
+          downloadButton.style.display = "inline-block";
+
+          const saved =
+            selectedImage.size > blob.size
+            ? Math.round((1 - blob.size / selectedImage.size) * 100)
+            : 0;
+
+          result.innerHTML =
+            "Original size: <strong>" +
+            formatBytes(selectedImage.size) +
+            "</strong><br>" +
+
+            "Compressed size: <strong>" +
+            formatBytes(blob.size) +
+            "</strong><br>" +
+
+            "Size reduction: <strong>" +
+            saved +
+            "%</strong>";
+
+        }, "image/jpeg", qualityValueNumber);
+
+      };
+
+      img.src = event.target.result;
+
+    };
+
+    reader.readAsDataURL(selectedImage);
+  }
+
+  function formatBytes(bytes) {
+
+    if (bytes === 0) return "0 Bytes";
+
+    const units = ["Bytes", "KB", "MB", "GB"];
+
+    const i = Math.floor(
+      Math.log(bytes) / Math.log(1024)
+    );
+
+    return (
+      parseFloat(
+        (bytes / Math.pow(1024, i)).toFixed(2)
+      ) +
+      " " +
+      units[i]
+    );
+  }
+
+</script>
 
 </body>
 </html>
